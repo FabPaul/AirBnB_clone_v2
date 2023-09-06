@@ -9,14 +9,14 @@ from time import strftime
 
 def do_pack():
     """ Function to generate .tgz (archive and compress) """
-    datestamp = strtime("%Y%m%d%H%M%S")
+    datestamp = strftime("%Y%m%d%H%M%S")
 
     try:
         local("mkdir -p versions")
-        file_name = "tar -czvf versions/web_static_{}.tgz web_static"
+        file_name = "tar -czvf versions/web_static_{}.tgz web_static/"
         local(file_name.format(datestamp))
 
-        return filename.format(datestamp)
+        return file_name.format(datestamp)
 
-    except Exception as exception
-    return None
+    except Exception as exception:
+        return None
