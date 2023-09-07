@@ -8,7 +8,6 @@ from os.path import exists
 
 env.hosts = ['100.25.37.100', '100.25.193.147']
 env.user = 'ubuntu'
-env.key_file = '~/.ssh/id_rsa'
 
 
 def do_deploy(archive_path):
@@ -30,7 +29,7 @@ def do_deploy(archive_path):
         # create dir path on remote servers
         run("sudo mkdir -p {0}{1}/".format(path, without_exten))
         # decompress archive
-        run("sudo tar -xzf /tmp/{0} -c {1}{2}/"
+        run("sudo tar -xzf /tmp/{0} -C {1}{2}/"
             .format(arch_file, path, without_exten))
         # delete archive from webserver
         run("sudo rm /tmp/{}".format(arch_file))
@@ -45,7 +44,7 @@ def do_deploy(archive_path):
         run("sudo ln -s {0}{1}/ /data/web_static/current"
             .format(path, without_exten))
 
-        return False
+        return True
 
-    except:
+    except Exception as e:
         return False
