@@ -27,5 +27,15 @@ def c_text(text):
     return f'C ' + text.replace('_', ' ')
 
 
+@app.route("/python/", strict_slashes=False)
+@app.route("/python/<text>", strict_slashes=False)
+def python_text(text="is cool"):
+    """ display “Python ”, followed by the value of the text variable
+    (replace underscore _ symbols with a space )
+    The default value of text is “is cool”
+    """
+    return f'Python ' + text.replace('_', ' ')
+
+
 if __name__ == "__main__":
     app.run('0.0.0.0')
