@@ -10,9 +10,10 @@ from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
+
 class BaseModel:
     """
-    BaseModel class defining common attributes/methods for other classes.
+    BaseModel class defining common attributes/methods for other classes
     """
 
     id = Column(String(60), primary_key=True, nullable=False)
@@ -21,16 +22,16 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """
-        Instantiation of the BaseModel class.
+        Instantiation of the BaseModel class
 
         Args:
-            args: Not used.
-            kwargs: Arguments for the constructor of the BaseModel.
+            args: Not used
+            kwargs: Arguments for the constructor of the BaseModel
 
         Attributes:
-            id (str): Unique id generated.
-            created_at (datetime): Creation date.
-            updated_at (datetime): Updated date.
+            id (str): Unique id generated
+            created_at (datetime): Creation date
+            updated_at (datetime): Updated date
         """
         if kwargs:
             for key, value in kwargs.items():
@@ -53,26 +54,26 @@ class BaseModel:
 
     def __str__(self):
         """
-        Return a string representation.
+        Return a string representation
 
         Returns:
-            str: A string containing class name, id, and dictionary.
+            str: A string containing class name, id, and dictionary
         """
         return "[{}] ({}) {}".format(
             type(self).__name__, self.id, self.__dict__)
 
     def __repr__(self):
         """
-        Return a string representation.
+        Return a string representation
 
         Returns:
-            str: A string representation.
+            str: A string representation
         """
         return self.__str__()
 
     def save(self):
         """
-        Update the public instance attribute updated_at to the current datetime.
+        Update the public instance attribute updated_at to the current datetime
         """
         self.updated_at = datetime.now()
         models.storage.new(self)
@@ -80,10 +81,10 @@ class BaseModel:
 
     def to_dict(self):
         """
-        Create a dictionary representation of the class.
+        Create a dictionary representation of the class
 
         Returns:
-            dict: A dictionary containing key-value pairs from __dict__.
+            dict: A dictionary containing key-value pairs from __dict__
         """
         my_dict = dict(self.__dict__)
         my_dict["__class__"] = str(type(self).__name__)
@@ -97,6 +98,6 @@ class BaseModel:
 
     def delete(self):
         """
-        Delete the current instance from the model storage.
+        Delete the current instance from the model storage
         """
         models.storage.delete(self)
