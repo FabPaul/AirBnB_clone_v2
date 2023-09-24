@@ -5,7 +5,7 @@
 from flask import Flask
 from flask import render_template
 from models import storage
-from models.state import Sate
+from models.state import State
 
 app = Flask(__name__)
 
@@ -75,7 +75,7 @@ def state_list():
 
 
 @app.teardown_appcontext
-def teardown(self):
+def teardown(exception):
     """ Remove sqlalchemy session and close the db at the end of the req"""
     storage.close()
 
