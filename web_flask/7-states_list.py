@@ -4,6 +4,8 @@
 
 from flask import Flask
 from flask import render_template
+from models import storage
+from models.state import Sate
 
 app = Flask(__name__)
 
@@ -63,6 +65,19 @@ def number_odd_or_even(n=None):
         num = "even"
 
     return render_template("6-number_odd_or_even.html", n=n, num=num)
+
+
+@app.route("/state_list", strict_slashes=False)
+def state_list():
+    """display a HTML page for the states """
+    states = storage.all(State)
+    return render_template('7-states_list.html', states=states)
+
+
+@app.teardown_appcontext
+def teardown(self):
+    """ Remove sqlalchemy session and close the db at the end of the req"""
+    storage.close()
 
 
 if __name__ == "__main__":
